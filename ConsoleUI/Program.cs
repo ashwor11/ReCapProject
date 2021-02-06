@@ -21,10 +21,11 @@ namespace ConsoleUI
                 Console.WriteLine(asdas.DailyPrice);
             }
 
-            foreach (var VARIABLE in carManager.GetAll())
+            foreach (var VARIABLE in brandManager.GetAll())
             {
                 
             }
+            Console.WriteLine(brandManager.Get(1).BrandName);
 
 
 

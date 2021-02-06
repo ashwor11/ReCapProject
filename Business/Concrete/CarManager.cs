@@ -3,6 +3,7 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -33,12 +34,27 @@ namespace Business.Concrete
 
         public List<Car> GetCarsByBrandId(int brandId)
         {
-           return _carDal.GetCarsByBrandId(brandId);
+            return _carDal.GetAll(p => p.BrandId == brandId).ToList();
         }
 
         public List<Car> GetCarsByColorId(int colorId)
         {
-            return _carDal.GetCarsByColorId(colorId);
+            return _carDal.GetAll(p => p.ColorId == colorId);
+        }
+
+        public List<Car> GetCarsByModelYear(int ModelYear)
+        {
+            return _carDal.GetAll(p => p.ModelYear == ModelYear);
+        }
+
+        public List<Car> GetCarsByPrices(decimal minPrice, decimal maxPrice)
+        {
+            return _carDal.GetAll(p => p.DailyPrice >= minPrice && p.DailyPrice <= maxPrice);
+        }
+
+        public Car Get(int id)
+        {
+            return _carDal.Get(p => p.CarId ==id );
         }
 
         public List<Car> GetAll()

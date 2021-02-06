@@ -14,6 +14,13 @@ namespace Business.Concrete
         {
             _brandDal = brandDal;
         }
+
+
+        public Brand Get(int id)
+        {
+            return _brandDal.Get(p=>p.BrandId==id);
+        }
+
         public List<Brand> GetAll()
         {
             return _brandDal.GetAll();
