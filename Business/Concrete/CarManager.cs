@@ -17,7 +17,13 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
+            while (car.DailyPrice<=0)
+            {
+                Console.Write("DailyPrice must be higher than 0:");
+                car.DailyPrice= Convert.ToDecimal(Console.ReadLine());
+            }
             _carDal.Add(car);
+            
         }
 
         public void Delete(Car car)
@@ -25,34 +31,31 @@ namespace Business.Concrete
             _carDal.Delete(car);
         }
 
+        public List<Car> GetCarsByBrandId(int brandId)
+        {
+           return _carDal.GetCarsByBrandId(brandId);
+        }
+
+        public List<Car> GetCarsByColorId(int colorId)
+        {
+            return _carDal.GetCarsByColorId(colorId);
+        }
+
         public List<Car> GetAll()
         {
             return _carDal.GetAll();
         }
 
-        public Car GetById(int CarId)
-        {
-            return _carDal.GetById(CarId);
-        }
-
-        public void ListByBrands(int BrandId)
-        {
-             _carDal.ListByBrands(BrandId);
-        }
-
-        public void ListByColors(int ColorId)
-        {
-            _carDal.ListByColors(ColorId);
-        }
-
-        public void ListCars()
-        {
-            _carDal.ListCars();
-        }
+        
 
         public void Update(Car car)
         {
-            _carDal.Update(car);
+            while (car.DailyPrice <= 0)
+            {
+                Console.WriteLine("DailyPrice must be higher than 0:");
+                car.DailyPrice = Convert.ToDecimal(Console.ReadLine());
+            }
+            _carDal.Add(car);
         }
     }
 }

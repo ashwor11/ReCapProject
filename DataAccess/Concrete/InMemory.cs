@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace DataAccess.Concrete
 {
@@ -43,6 +44,17 @@ namespace DataAccess.Concrete
                 new Brand { BrandId=4, BrandName="Toyota"},
             };
         }
+
+        public Car Get(Expression<Func<Car, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Add(Car car)
         {
             _cars.Add(car);
@@ -117,6 +129,16 @@ namespace DataAccess.Concrete
             CarToUpdate.DailyPrice = car.DailyPrice;
             CarToUpdate.Description = car.Description;
             CarToUpdate.ModelYear = car.ModelYear;
+        }
+
+        public List<Car> GetCarsByBrandId(int brandId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Car> GetCarsByColorId(int colorId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
