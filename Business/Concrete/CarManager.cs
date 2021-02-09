@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -50,6 +51,11 @@ namespace Business.Concrete
         public List<Car> GetCarsByPrices(decimal minPrice, decimal maxPrice)
         {
             return _carDal.GetAll(p => p.DailyPrice >= minPrice && p.DailyPrice <= maxPrice);
+        }
+
+        public List<CarDetailDto> GetCarDetalis()
+        {
+            return _carDal.GetCarDetails();
         }
 
         public Car Get(int id)
