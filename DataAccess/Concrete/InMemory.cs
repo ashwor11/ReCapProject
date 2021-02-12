@@ -73,6 +73,11 @@ namespace DataAccess.Concrete
             throw new NotImplementedException();
         }
 
+        public List<CarsReadyForRentDto> GetCarsReadyForRent()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Car> GetAll()
         {
             return _cars;

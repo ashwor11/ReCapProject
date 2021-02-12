@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Business.Constants;
+using Core.Utilities.Results;
 using Entities.DTOs;
 
 namespace Business.Concrete
@@ -17,67 +19,75 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
-            while (car.DailyPrice<=0)
+            if (car.DailyPrice <= 0)
             {
-                Console.Write("DailyPrice must be higher than 0:");
-                car.DailyPrice= Convert.ToDecimal(Console.ReadLine());
+                return new ErrorResult(Messages.DailyPricePositive);
+
             }
             _carDal.Add(car);
-            
+            return new SuccessResult();
+
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+            return new SuccessResult();
         }
 
-        public List<Car> GetCarsByBrandId(int brandId)
+        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return _carDal.GetAll(p => p.BrandId == brandId).ToList();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == brandId).ToList());
         }
 
-        public List<Car> GetCarsByColorId(int colorId)
+        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            return _carDal.GetAll(p => p.ColorId == colorId);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == colorId));
         }
 
-        public List<Car> GetCarsByModelYear(int ModelYear)
+        public IDataResult<List<Car>> GetCarsByModelYear(int ModelYear)
         {
-            return _carDal.GetAll(p => p.ModelYear == ModelYear);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ModelYear == ModelYear));
         }
 
-        public List<Car> GetCarsByPrices(decimal minPrice, decimal maxPrice)
+        public IDataResult<List<Car>> GetCarsByPrices(decimal minPrice, decimal maxPrice)
         {
-            return _carDal.GetAll(p => p.DailyPrice >= minPrice && p.DailyPrice <= maxPrice);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.DailyPrice >= minPrice && p.DailyPrice <= maxPrice));
         }
 
-        public List<CarDetailDto> GetCarDetalis()
+        public IDataResult<List<CarDetailDto>> GetCarDetalis()
         {
-            return _carDal.GetCarDetails();
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
-        public Car Get(int id)
+        public IDataResult<List<CarsReadyForRentDto>> GeGetCarsReadyForRent()
         {
-            return _carDal.Get(p => p.CarId ==id );
+            return new SuccessDataResult<List<CarsReadyForRentDto>>(_carDal.GetCarsReadyForRent());
         }
 
-        public List<Car> GetAll()
+        public IDataResult<Car> Get(int id)
         {
-            return _carDal.GetAll();
+            return new  SuccessDataResult<Car>(_carDal.Get(p => p.CarId ==id ));
+        }
+
+        public IDataResult<List<Car>> GetAll()
+        {
+            return new  SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
         
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
-            while (car.DailyPrice <= 0)
+            if (car.DailyPrice <= 0)
             {
-                Console.WriteLine("DailyPrice must be higher than 0:");
-                car.DailyPrice = Convert.ToDecimal(Console.ReadLine());
+                return new ErrorResult(Messages.DailyPricePositive);
+
             }
-            _carDal.Add(car);
+            _carDal.Update(car);
+            return new SuccessResult();
         }
     }
 }

@@ -23,10 +23,29 @@ namespace DataAccess.Concrete.EntityFramework
                     join p in context.Colors on c.ColorId equals p.ColorId
                     select new CarDetailDto
                     {
-                        CarName = c.CarName, DailyPrice = c.DailyPrice, BrandName = b.BrandName, ColorName = p.ColorName
+                        CarName = c.CarName, DailyPrice = c.DailyPrice, BrandName = b.BrandName, ColorName = p.ColorName,Available = c.Available
                     };
                 return result.ToList();
             }   
+        }
+
+        public List<CarsReadyForRentDto> GetCarsReadyForRent()
+        {
+            using (ReCapContext context=new ReCapContext())
+            {
+                var result = from c in context.Cars
+                    join b in context.Brands on c.BrandId equals b.BrandId
+                    join p in context.Colors on c.ColorId equals p.ColorId
+                    where c.Available == true
+                    select new CarsReadyForRentDto()
+                    {
+                        CarName = c.CarName,
+                        DailyPrice = c.DailyPrice,
+                        BrandName = b.BrandName,
+                        ColorName = p.ColorName
+                    };
+                return result.ToList();
+            }
         }
     }
 }
