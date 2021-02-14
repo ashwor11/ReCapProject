@@ -20,6 +20,14 @@ namespace ConsoleUI
             //TestinAllEntities(carManager, brandManager, colorManager);
             //GetCarDetails(carManager);
             //RentalTesst(rentalManager, carManager);
+            var result = carManager.GetAll();
+            if (result.Success)
+            {
+                foreach (var VARIABLE in result.Data)
+                {
+                    Console.WriteLine(VARIABLE.CarName);
+                }
+            }
         }
 
         private static void RentalTesst(RentalManager rentalManager, CarManager carManager)
