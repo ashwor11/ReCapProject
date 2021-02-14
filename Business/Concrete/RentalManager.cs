@@ -35,9 +35,11 @@ namespace Business.Concrete
         public IResult Add(Rental rental)
         {
             Car car;
+            
             car = _carDal.Get(c => c.CarId == rental.CarId);
             if (car.Available)
             {
+                rental.RentDate=DateTime.Now;
                 _rentalDal.Add(rental);
                 car.Available = false;
                 _carDal.Update(car);
