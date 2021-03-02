@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -27,23 +29,16 @@ namespace Business.Concrete
         {
             return new  SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
-
+        [ValidationAspect(typeof(BrandValidator))]  
         public IResult Add(Brand brand)
         {
-            if (brand.BrandName.Length <= 2)
-            {
-                return new ErrorResult(Messages.BrandNameShort);
-            }
+            
             _brandDal.Add(brand);
             return new SuccessResult();
         }
-
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
-            if (brand.BrandName.Length <= 2)
-            {
-                return new ErrorResult(Messages.BrandNameShort);
-            }
             _brandDal.Update(brand);
             return new SuccessResult();
         }

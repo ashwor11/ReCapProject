@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using Entities.Concrete;
 
 namespace Core.Utilities.Results
 {
@@ -20,7 +21,7 @@ namespace Core.Utilities.Results
             
         }
 
-        public SuccessDataResult():base(default,true)
+        public SuccessDataResult(List<User> getAll):base(default,true)
         {
             
         }

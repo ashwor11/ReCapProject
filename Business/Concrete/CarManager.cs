@@ -6,8 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using Entities.DTOs;
+using FluentValidation;
 
 namespace Business.Concrete
 {
@@ -19,13 +22,9 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.DailyPrice <= 0)
-            {
-                return new ErrorResult(Messages.DailyPricePositive);
-
-            }
             _carDal.Add(car);
             return new SuccessResult();
 
@@ -78,14 +77,10 @@ namespace Business.Concrete
         }
 
         
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
-            if (car.DailyPrice <= 0)
-            {
-                return new ErrorResult(Messages.DailyPricePositive);
-
-            }
+            
             _carDal.Update(car);
             return new SuccessResult();
         }
