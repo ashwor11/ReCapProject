@@ -21,9 +21,6 @@ namespace Core.Utilities.Results
             
         }
 
-        public SuccessDataResult(List<User> getAll):base(default,true)
-        {
-            
-        }
+        
     }
 }
